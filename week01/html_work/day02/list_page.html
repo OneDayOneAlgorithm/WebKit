@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .newperson{
+            background-color: red;
+            color:white;
+        }
+        .orange{
+            background-color: orange;
+        }
+        table{
+            border: 1px solid;
+        }
+    </style>
+</head>
+<body>
+    <label for="name">이름</label>
+    <input type="text" id="name" value="홍길동"><br>
+    <label for="name">부서</label>
+    <input type="text" id="name" value="개발"><br>
+    <label for="name">직책</label>
+    <input type="text" id="name" value="대리"><br>
+    <label for="name">사진</label>
+    <input type="button" id="name" value="파일 선택">선택된  파일 없음<br>
+    <br>
+    <input type="button" value="새 사원 추가" class="newperson">
+    <br>
+    <br>
+    <input type="button" value="선택 삭제"> 
+    <label for="search"> | 검색 :</label>
+    <select name="search" id="search">
+        <option value="name">이름</option>
+        <option value="number">번호</option>
+    </select>
+    <input type="text">
+    <br>
+    <table width="1000px" height="300px">
+        <tr class="orange">
+            <td>
+                <input type="checkbox">
+            </td>
+            <td>번호</td>
+            <td width="100">사진</td>
+            <td>사원명</td>
+            <td>부서</td>
+            <td>직급</td>
+            <td>수정</td>
+            <td>삭제</td>
+        </tr>
+        <tr line-height="400px">
+            <td rowspan="2"><input type="checkbox"></td>
+            <td rowspan="2">1043</td>
+            <td ><img src="./images/sky.jpg" alt=""  width="100"></td>
+            <td>홍길동</td>
+            <td>개발</td>
+            <td>대리</td>
+            <td rowspan="2"><input type="button" value="edit"></td>
+            <td rowspan="2"><input type="button" value="delete"></td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <table>
+                    <tr>
+                        <td>번호</td>
+                        <td>댓글 내용</td>
+                        <td>작성자</td>
+                        <td>
+                            수정
+                        </td>
+                        <td>삭제</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>멋진 사진입니다.</td>
+                        <td>박문수</td>
+                        <td>수정</td>
+                        <td>삭제</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>좋아요^^퍼가요~</td>
+                        <td>일지매</td>
+                        <td>수정</td>
+                        <td>삭제</td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" float="left";>댓글
+                            <label for="comment">댓글</label>
+                            <input type="text" id="comment">
+                            <label for="makeman">작성자</label>
+                            <input type="text" id="makeman">
+                            <input type="button" value="댓글입력">
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <br>
+    <footer>
+        <adress>&copy;comstudy21.or.kr</adress>
+    </footer>
+</body>
+</html>
