@@ -4,39 +4,76 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>이력서</title>
+    <style>
+        hr{
+            border: solid 1px;
+            color: black;
+        }
+        h1{
+            text-align: center;
+            font-size: 50px;
+            margin: 0;
+        }
+        div{
+            width: 800px;
+        }
+        table{
+            width: 800px;
+            table-layout: fixed;
+            border-collapse: collapse;  
+        }
+        #blue{
+            background-color: rgb(229, 252, 252);
+        }
+        td{
+            text-align: center;
+            height: 20px;
+            padding: 0;
+        }
+        p{
+            width: 800px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
+    <div>
+        <hr>
+        <h1>이 력 서</h1>
+        <hr>
+    </div>
+    <br>
     <label for="base">1. 기초자료</label>
     <table border="1" id="base">
         <tr>
             <td rowspan="6">사진</td>
-            <td>성명</td>
-            <td width="100px"></td>
-            <td>한문</td>
-            <td width="100px"></td>
+            <td id="blue">성명</td>
+            <td></td>
+            <td id="blue">한문</td>
+            <td></td>
         </tr>
         <tr>
-            <td>주민등록번호</td>
+            <td id="blue">주민등록번호</td>
             <td colspan="3"></td>
         </tr>
         <tr>
-            <td>E-mail</td>
+            <td id="blue">E-mail</td>
             <td colspan="3"></td>
         </tr>
         <tr>
-            <td>전화번호</td>
+            <td id="blue">전화번호</td>
             <td></td>
-            <td>휴대폰</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>우편번호</td>
-            <td></td>
-            <td>비상연락처</td>
+            <td id="blue">휴대폰</td>
             <td></td>
         </tr>
         <tr>
-            <td>주소</td>
+            <td id="blue">우편번호</td>
+            <td></td>
+            <td id="blue">비상연락처</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td id="blue">주소</td>
             <td colspan="3"></td>
         </tr>
     </table>
@@ -44,41 +81,87 @@
     <label for="school">2.학력사항</label>
     <table border="1" width="300px" id="school">
         <tr>
-            <td height="30px">기간</td>
-            <td>상세내용</td>
-            <td>비고</td>
+            <td id="blue">기간</td>
+            <td id="blue">상세내용</td>
+            <td id="blue">비고</td>
         </tr>
         <tr>
-            <td height="30px" width="100px"></td>
             <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td height="30px" width="100px"></td>
             <td></td>
             <td></td>
         </tr>
         <tr>
-            <td height="30px" width="100px"></td>
+            <td></td>
             <td></td>
             <td></td>
         </tr>
         <tr>
-            <td height="30px" width="100px"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
             <td></td>
             <td></td>
         </tr>
     </table>
     <br>
-    <table border="1">
+    <label for="experience">3.경력사항</label>
+    <table border="1" id="experience">
         <tr>
-            <td width="100px" height="30px">기간</td>
-            <td width="100px">관련내용</td>
+            <td id="blue">기간</td>
+            <td id="blue">관련내용</td>
         </tr>
         <tr>
-            <td height="30px"></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
             <td></td>
         </tr>
     </table>
+    <br>
+    <label for="ability">4.개인능력 및 장단점</label>
+    <table border="1" id="ability">
+        <tr>
+            <td rowspan="2" id="blue">자격 및 포상</td>
+            <td colspan="2"></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="2"></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td rowspan="2" id="blue">컴퓨터 능력</td>
+            <td></td>
+            <td id="blue">상/중/하</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td id="blue">상/중/하</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td id="blue">취미</td>
+            <td></td>
+            <td id="blue">특기</td>
+            <td></td>
+        </tr>
+    </table>
+    <p>위의 사실이 틀림없음을 서약합니다.</p>
+<p>작성일 월 일</p>
+<p>작성자 (인)</p>
 </body>
 </html>
