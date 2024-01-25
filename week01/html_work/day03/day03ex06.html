@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSS 트랜지션 예제</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .button {
+            display: block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 1.2s ease;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        #box {
+            display: block;
+            width: 100px;
+            height: 100px;
+            margin: 10px;
+            position: relative;
+            left: 0px;
+            background-color: red;
+            transition: left .3s linear;
+        }
+    </style>
+</head>
+<body>
+    <box id="box">box</box>
+    <button class="button">버튼</button>
+
+    <script>
+        var btnList = document.getElementsByClassName("button");
+        var btn = btnList[0];
+        
+        var box = document.getElementById("box");
+        console.dir(box);
+
+        btn.onclick = function() {
+            box.style.left = "400px";
+        }
+    </script>
+</body>
+</html>

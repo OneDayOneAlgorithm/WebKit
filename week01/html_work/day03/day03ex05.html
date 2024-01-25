@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function valibateForm(form){
+            event.preventDefault();
+            var resultArea = document.getElementById("result");
+            if(form.title.value==""){
+                resultArea.innerText = "제목을 입력 하세요";
+                form.title.focus();
+                return;
+            }
+            if(form.name.value==""){
+                resultArea.innerText = "성명을 입력하세요";
+                form.name.focus();
+                return;
+            }
+            if(form.name.value.length < 2){
+                resultArea.innerText = "성명은 2글자 이상이어야 합니다!";
+                form.name.focus();
+                return;
+            }
+            if(form.content.value==""){
+                resultArea.innerText = "내용을 입력하세요"
+                form.content.focus();
+                return;
+            }
+            if(form.content.value.length < 2){
+                resultArea.innerText = "내용은 2글자 이상이어야 합니다!"
+                form.content.focus();
+                return;
+            }
+            document.getElementById("result").innerHTML = `
+            <p>제목: ${form.title.value}</p>
+            <p>성명: ${form.name.value}</p>
+            <p>내용: ${form.content.value}</p>
+            `;
+        }
+    </script>
+</head>
+<body>
+    <h2>자바스크립트 폼 유효성 검사 실습</h2>
+    <form action="" onsubmit="valibateForm(this)">
+        <label for="title">제목</label> 
+        <input type="text" name="title" id="title"><br>
+        <label for="name">성명</label>
+        <input type="text" name="name" id="name"><br>
+        <label for="content">내용</label>
+        <textarea name="content" id="content"></textarea><br>
+        <input type="submit" value="저장">
+    </form>
+    <hr>
+    <div id="result"></div>
+</body>
+</html>

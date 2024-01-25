@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input{
+            width: 40px;
+        }
+    </style>
+</head>
+<body>
+    <h1>덧셈 계산기</h1>
+    <form action="" id="cal">
+        <input type="text" id="num1">
+        +
+        <input type="text" id="num2">
+        <button>=</button>
+        <input type="text" id="result">
+    </form>
+    <script>
+        var cal = document.getElementById("cal");
+        cal.onsubmit = function(){
+            event.preventDefault();
+            var num1_value = parseInt(cal.num1.value);
+            var num2_value = parseInt(cal.num2.value);
+            var result_value = num1_value + num2_value;
+            cal.result.value = result_value;
+        }
+    </script>
+</body>
+</html>

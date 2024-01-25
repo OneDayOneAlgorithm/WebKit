@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            border: 1px dotted gray;
+            padding: 3px;
+            margin: 2px;
+            border-radius: 5px;
+        }
+        div, header, footer, main, aside{
+            border: 1px solid red;
+        }
+        ul, section{
+            border: 1px solid blue;
+        }
+        main > div, aside{
+            float: left;
+        }
+        aside{
+            width: 175px;
+            height: 300px;
+        }
+        main > div{
+            width: 400px;
+        }
+        footer{
+            clear:both;
+        }
+        div#page{
+            width: 800px;
+        }
+        main{
+            overflow: hidden;
+        }
+        main>div>section:nth-child(2), main>div>section:nth-child(3){ 
+            width: 183px;
+            float: left;
+            height: 200px;
+            background-color: aquamarine;
+        }
+        main>div>section:nth-child(1){
+            height: 80px;
+            background-color: aqua;
+        }
+        div#page{
+            margin: 8px auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="page">
+        <header>
+            <h1>길동이의 홈페이지</h1>
+            <ul>
+                <!-- <li>홈</li>
+                <li>프로필</li>
+                <li>갤러리</li>
+                <li>강의</li>
+                <li>게시판</li> -->
+            </ul>
+        </header>
+        <main>
+            <aside>left</aside>
+            <div>
+                <section>banner</section>
+                <section>1</section>
+                <section>2</section>
+            </div>
+            <aside>right</aside>
+        </main>
+        <footer>
+            <address>
+                comstudy@naver.com
+            </address>
+        </footer>
+    </div>
+</body>
+</html>
