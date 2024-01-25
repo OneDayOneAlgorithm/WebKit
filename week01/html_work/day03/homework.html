@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        button{
+            width: 100px;
+            height: 50px;
+            position: relative;
+            left: 190px;
+            top: 80px;
+        }
+        table{
+            width: 100px;
+            height: 100px;
+            table-layout: fixed;
+            text-align: center;
+            transform: rotate(90deg);
+            transition: transform ease 1s;
+        }
+        .one{
+            background-color: red;
+        }
+        .two{
+            background-color: yellow;
+        }
+        .three{
+            background-color: green;
+        }
+        .four{
+            background-color: blue;
+        }
+    </style>
+</head>
+<body>
+    <button id="btn">시계방향으로 돌리기</button>
+    <table id="box">
+        <tr>
+            <td></td>
+            <td class="one"></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="two"></td>
+            <td></td>
+            <td class="four"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td class="three"></td>
+            <td></td>
+        </tr>
+    </table>
+    <script>
+        var bnt = document.getElementById("btn");
+        var box = document.getElementById("box");
+        bnt.onclick = function(){
+            box.style.transform = box.style.transform+"rotate(90deg)";
+            
+        }
+    </script>
+</body>
+</html>
