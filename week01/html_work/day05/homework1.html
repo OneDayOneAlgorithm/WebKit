@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>정수의 크기 판별</h1>
+  <p>정수를 입력 하고 Enter키를 치면 다음 input으로 넘어갑니다.</p>
+  <input type="number" id="one">
+  <input type="number" id="two">
+  <input type="number" id="three">
+  <p id="result"></p>
+  <script>
+    let one = document.getElementById("one");
+    let two = document.getElementById("two");
+    let three = document.getElementById("three");
+    let lst = [];
+    let result = document.getElementById("result")
+    one.onkeydown = function(){
+      if(window.event.keyCode==13){
+        lst.push(one.value);
+        two.focus();
+      }
+    }
+    two.onkeydown = function(){
+      if(window.event.keyCode==13){
+        if (one.value > two.value){
+          lst.push(two.value);
+        }else{
+          lst.unshift(two.value);
+        }
+          three.focus();
+      }
+    }
+    three.onkeydown = function(){
+      if(window.event.keyCode==13){
+        for(let i=0; i<2;i++){
+          if(lst[i]<three.value){
+            lst.splice(i,0,three.value);
+            break;
+          }
+        else{
+          lst.push(three.value);
+        }
+        }
+        result.innerText = `큰수:${lst[0]}, 중간수:${lst[1]}, 작은수:${lst[2]}`
+      }
+    }
+  </script>
+</body>
+</html>
