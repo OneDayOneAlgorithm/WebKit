@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let globalName = "홍길동";
+        function test(){
+            console.log("test 함수 호출됨 ...");
+
+            let localName = "아부지"
+            console.log("text에서 localName: ", localName);
+            
+            // 함수내부터에서 var 선언하면 지역성을 갖지만
+            // var 없이 변수를 사용하면 지역성 갖지 않음
+            var userName = "이순신";
+            window.bbb = "bbb"
+        }
+
+        test()
+        // console.log("테스트 외부에서 LocalName: " + localName)
+        console.log("globalName:", globalName)
+        console.log(window.bbb);
+
+   
+      </script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jsDay01ex01.html</title>
+</head>
+<body>
+    
+
+    <script>
+        // script태그 사이에 자바 스크립트 문법 사용.
+        /*
+        여러 행을 주석으로 한번에 묶어 줄때 사용하는 주석문.
+        작성일: 2024-01-29
+        */
+
+        // 변수선언
+        // var 선언: 버전 ES5 이전부터 사용 되던 키워드
+        //           함수, 객체 단위, 중복된 변수명 선언 가능.
+        //           window의 멤버 변수가 된다.
+        // let 선언: 버전 ES6 이후부터 사용 되는 키워드
+        //           한페이지에 같은 변수 중복 선언 불가능
+        //           블럭 단위 (소스의 {와 }사이를 body또느 block이라고한다.)
+        // 변수가 적용되는 scope(범위)가 다르다.
+
+
+        //  변수를 선언하고 값을 넣지 않으면 undefined.
+        var userName;
+        console.log(userName);
+        console.dir(userName);
+        console.dir( typeof(userName) );
+
+        // JS는 변수를 선언할때 타입을 지정하지 않는다.
+        // 변수에 대입(할당)되는 데이터의 타입에 따라 변수의 타입이 결정된다.
+        userName = "홍길동";
+        console.log(userName);
+        console.dir(userName);
+        console.dir( typeof(userName) );
+
+        
+        // let의 범위는 블럭단위이다. 
+        // let으로 선언한 변수는 window객체의 멤버가 아니다.
+        // let으로 선언한 변수는 다른 함수나 블럭에서 접근 불가능.
+        let userName2 = "김길동";
+        console.dir(window);
+
+        if(true) {
+            // aaa는 let으로 선언해서 block안에서만 사용 가능.
+            let aaa = 100;
+            // bbb는 var로 선언 했기때문에 최상위 객체 window 멤버
+            var bbb = 100;
+        }
+
+        console.log("bbb =", bbb);
+        //console.log("aaa =", aaa);
+        console.dir(window);
+
+        
+    </script>
+</body>
+</html>

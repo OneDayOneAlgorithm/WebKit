@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var num1 = 1004;
+        console.log(num1);
+        console.log(typeof(num1));
+
+        num1="숫자 100";
+        console.log(num1);
+        console.log(typeof(num1));
+
+        var obj = new Object();
+        obj.name = "kim";
+        console.dir(obj);
+        console.log(obj);
+        console.log(typeof(obj));
+        
+        var obj2 = {job:"도둑", name:"홍길동"};
+        console.dir(obj2);
+        console.log(typeof(obj2));
+
+        var arr = new Array();
+        var arr2 = [100,200,303];
+        console.log(typeof(arr))
+        console.log(arr2);
+        console.log(arr2[0],arr2[1],arr2[2]);
+
+        const MY_NAME = "홍길동";
+        function sayHello(no){
+            console.log("Hello", MY_NAME, no)
+        }
+        var sayHelloRef = sayHello;
+        sayHelloRef(2);
+
+    </script>
+    
+    
+</body>
+</html>
