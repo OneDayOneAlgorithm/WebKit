@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box">
+        <ul>
+        </ul>
+    </div>
+    <script>
+        const arr1=[1,2,3];
+        const arr2=[4,5,6,7];
+        console.log(arr1);
+
+        const arr3 = [...arr1, ...arr2];
+        console.log(arr3);
+
+        // 새 배열에 복제하고 새 요소를 추가하기
+        const arr4 = [...arr3, 8,9];
+        console.log(arr4);
+
+        const boxUl = document.querySelector("#box ul");
+        const newLis = arr4.map(function(item){
+            return `<li>${item}</li>`;
+        })
+        console.log(newLis);
+        boxUl.innerHTML = "";
+        newLis.forEach(function(item,index){
+            boxUl.innerHTML += item;
+        });
+    </script>
+</body>
+</html>

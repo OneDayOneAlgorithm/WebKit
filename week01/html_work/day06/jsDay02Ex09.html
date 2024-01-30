@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn">클릭 버튼</button>
+    <ul>
+        <li>btn1</li>
+        <li>btn2</li>
+        <li>bnt3</li>
+    </ul>
+    <script>
+        // 방금 만든 라이브러리
+        function $(selector){
+            let target = document.querySelectorAll(selector);
+            target.click = function(callback){
+                console.dir(target[0]);
+                console.dir(...target);
+                //target[0].onclick = callback;
+                [...target].forEach(function(item){
+                    item.onclick = callback;
+                })
+            }
+            return target;
+        }
+
+        function $(selector){
+            let target = document.querySelectorAll(selector);
+            target.click = function(callback){
+                [...target].forEach(function(item){
+                    item.onclick = callback;
+                })
+            }
+        }
+
+        // let t = $("#btn");
+        // console.dir(t);
+
+        $("#btn").click(function(){
+            console.log("클릭했다!");
+        })
+        $("ul li").click(function(){
+            console.log("li 클릭", this.innerText);
+        })
+    </script>
+</body>
+</html>

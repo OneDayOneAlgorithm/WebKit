@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    <script>
+        // function을 이용한 객체의 생성자
+        // ES6 이전에 사용되던 방식
+        // class 키워드가 나오기 전에 class 대신 사용 하던 방식
+    
+        // 클래스는 틀 또는 원형이다.
+        // 붕어빵은 객체, 뿡어빵 틀은 클래스에 비유
+        // 설계도와 자동차
+        function People(name, phone) {
+            // this는 클래스로 생성한 객체 자신을 뜻한다.
+            this.name = name;
+            this.phone = phone;
+
+            // this.showInfo = function() {
+            //     console.log("name:", person01.name);
+            //     console.log("phone:", person01['phone']);
+            // }
+            // 주의: 모든 객체에 메서드의 코드가 복제 될 필요는 없다.
+            //       메서는 메서드 영역 한곳에 있으면 된다. (prototype)
+        }
+
+        People.prototype.showInfo = function() {
+            console.log("name:", this.name);
+            console.log("phone:", this['phone']);
+        }
+
+        //console.dir(People);
+
+        var person01 = new People("홍길동", "010-1111-1111");
+        //console.log(person01);
+        //person01.showInfo();
+
+        var person02 = new People("이순신", "010-2222-2222");
+        //person02.showInfo();
+
+
+        function Superman(name, phone) {
+            this.name = name;
+            this.phone = phone;
+        }
+        // 옛날 방식의 상속
+        Superman.prototype = new People();
+        Superman.prototype.constructor = People;
+
+        Superman.prototype.fly = function() {
+            console.log("날아간다~");
+        }
+
+        var s01 = new Superman("일지매", "010-3333-3333");
+        s01.showInfo();
+        s01.fly();
+    </script>
+</body>
+</html>

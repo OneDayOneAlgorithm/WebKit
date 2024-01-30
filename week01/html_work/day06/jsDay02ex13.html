@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class People{
+            constructor(name, phone){
+                this.name = name;
+                this.phone = phone;
+            }
+            showInfo(){
+                console.log(this.name, this.phone)
+            }
+        }
+        const p01 = new People("장사장", "010-1234-5678");
+        console.log(p01);
+        const p02 = new People("김사장", "010-2222-2222");
+        console.log(p02);
+        console.log(p02.name);
+    </script>
+</body>
+</html>
