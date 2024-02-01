@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#btn').click(function(){
+                console.dir($('div'))
+            });
+        });
+    </script>
+</head>
+<body>
+    <button id="btn">Toggle Button</button>
+    <div>
+        <p>이것은 보이고 감춰지는 부분</p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>DOM Manipulation Example</title>
+  <!-- jQuery 라이브러리 로드 -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <h2>DOM Manipulation Example</h2>
+  <button id="addButton">Add New Element</button>
+  <ul id="list">
+    <li>Item 1</li>
+    <li>Item 2</li>
+  </ul>
+
+  <script>
+    // jQuery를 사용하여 버튼 클릭 이벤트 처리
+    $(document).ready(function() {
+      // 버튼 클릭 이벤트 핸들러
+      $('#addButton').click(function() {
+        // 새로운 li 요소를 생성하여 ul 요소에 추가
+        // var newItem = $('<li>New Item</li>');
+        $('#list').append($('<li>New Item</li>'));
+      });
+    });
+  </script>
+</body>
+</html>
+

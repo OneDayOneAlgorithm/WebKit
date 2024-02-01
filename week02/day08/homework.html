@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn">Click Me</button>
+    <script>
+        const $ = function(selector){
+            const dom = document.querySelector(selector);
+
+            dom.color = function(color){
+                this.style.color = color;
+                return dom;
+            }
+            dom.click = function(callback){
+                dom.onclick = callback;
+                return dom;
+            }
+            return dom;
+        }
+        $('#btn').color('red').click(function(){
+            console.log("click")
+        })
+    </script>
+</body>
+</html>

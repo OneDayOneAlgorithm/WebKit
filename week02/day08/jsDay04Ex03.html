@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script>
+        $(document).ready(function(){
+            // CSS 선택기 그대로 사용
+            var btn = $(".btn");
+            console.dir(btn);
+
+            btn.click(function(e){
+                $("body").css('backgroundColor', "yellow");
+            })
+
+            var btn2 = document.getElementsByClassName("btn")[0];
+            console.dir(btn2 == btn[0]);
+            btn2.addEventListener("click", function(e){
+                document.getElementsByTagName("h2")[0].style.backgroundColor="red";
+            })
+
+            console.dir(btn2 === btn);
+        });
+    </script>
+</head>
+<body>
+    <h2>길동이의 홈페이지</h2>
+    <button class="changeBtn">변경하기</button>
+</body>
+</html>

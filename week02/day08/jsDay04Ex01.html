@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- jQuery CDN-->
+    
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> -->
+   
+    <!-- jQuery 프로젝트에 직접 다운로드 후 사용 -->
+    <script src="../js/jquery.min.js"></script>
+</head>
+<body>
+    <button id="btn">OK</button>
+    <script>
+        // 선택하고 기능을 추가하고..
+        // CSS에서의 선택기 그대로 사용 가능
+        $('#btn').click(function(){
+            console.log("하이")
+        });
+        document.getElementById('btn').onclick = function(){
+            document.body.bgColor = "yellow";
+        }
+    </script>
+</body>
+</html>

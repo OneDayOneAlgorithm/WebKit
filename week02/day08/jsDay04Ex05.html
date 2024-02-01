@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery.min.js"></script>
+</head>
+<body>
+    <h1>Hello jQuery!</h1>
+    <p>
+        <button id="changeBtn">Change Text</button>
+    </p>
+    <script>
+        // jQuery 진입점
+        // $변수에 jquery함수를 참조 시킨 것
+        console.log("$ === jQuery", $ === jQuery);
+        jQuery("#changeBtn").click(function(e){
+                // text() -> innerText
+                // html() -> innerHTML
+                // css -> Style
+                // hide()
+                // toggle()
+                // show()
+
+                // 메서드 체인 사용하지 않고 적용
+                // $("h1").text("안녕");
+                // $("h1").css('color', 'red');
+                // $('h1').css('background', 'yellow');
+
+                // css의 속성 여러개를 한꺼번에 적용 - 객체 리터럴 사용
+        $('h1').text("안녕 자바스크립트")
+            .css({color:'green', backgroundColor:'orange'})
+            .hide(1000)
+            .fadeOut(1000);
+
+        })
+    </script>
+</body>
+</html>

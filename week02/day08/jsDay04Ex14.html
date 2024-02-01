@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>jQuery .data() Method Example</title>
+  <!-- jQuery 라이브러리 로드 -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <h2>jQuery .data() Method Example</h2>
+  <button id="saveDataButton">Save Data</button>
+  <button id="getDataButton">Get Data</button>
+
+  <script>
+    $(document).ready(function() {
+      // .data() 메서드를 이용하여 데이터 저장
+      $('#saveDataButton').click(function() {
+        $('h2').data('username', 'John Doe');
+        console.log('Data saved: ' + $('h2').data('username'));
+      });
+
+      // .data() 메서드를 이용하여 데이터 가져오기
+      $('#getDataButton').click(function() {
+        console.log('Data retrieved: ' + $('h2').data('username'));
+        console.log($('h2'))
+      });
+    });
+  </script>
+</body>
+</html>
+
