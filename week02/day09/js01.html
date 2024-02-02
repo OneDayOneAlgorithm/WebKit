@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <style>
+        .box{
+            position: relative;
+            height: 100px;
+            width: 100px;
+            border: 3px solid;
+            left: 50px;
+            top: 50px;
+            box-sizing: border-box;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">Box</div>
+    <script>
+        $(function(){
+            $('.box').mousedown(function(){
+                
+                // 1. 마우스의 x,y 좌표를 얻어 온다. (e.clientX, e.clientY)
+                // 2. .box의 x,y 좌표를 읽어 온다.
+                // 3. .box의 좌표와 마우스의 좌표의 거리를 유지한 상태로 .box가
+                // 이동 되도록 한다.
+                let gapX = event.clientX - $(".box").offset().left;
+                let gapY = event.clientY - $(".box").offset().top;
+                $(window).on('mousemove',function(){     
+                    console.log(gapX)
+                    $(".box").css({left:event.clientX-gapX+'px', top:event.clientY-gapY+'px'});
+                })
+                $(window).mouseup(function(){
+                    $(window).off('mousemove')
+                })
+            });           
+        });
+    </script>
+</body>
+</html>

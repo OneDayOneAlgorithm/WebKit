@@ -24,6 +24,7 @@
         // 캔버스 요소 가져오기
       const canvas = document.getElementById('gameCanvas');
       const context = canvas.getContext('2d');
+      console.dir(canvas.getContext)
       
       // 게임 상태 변수
       let gameOver = false;
@@ -61,80 +62,18 @@
             }
         }   
       }
+
       function disableScroll() { 
         document.body.classList.add("stop-scrolling"); 
       } 
       disableScroll();
-
-      // 로컬스토리지
-      function saveData(score) {
-        let scoreData = {
-            scoreSave: score
-        }
-        localStorage.setItem("max score", JSON.stringify(scoreData) );
-    }
       
       // 게임 루프 함수
       function gameLoop() {
         // 게임 종료 시 게임 루프 중지
         if (gameOver) {
-          let jsonData = localStorage.getItem("max score")
-          let scoreData = JSON.parse(jsonData) 
-          let scoreSave = 1;
-          console.log(scoreSave)
-          if(scoreSave){
-            if(scoreSave<score){
-              saveData(score);
-            }
-          }else{
-            saveData(score);
-          }
-          jsonData = localStorage.getItem("max score")
-          scoreData = JSON.parse(jsonData) 
-          scoreSave = scoreData.scoreSave; 
-          context.fillStyle = 'black';
-          context.font = '60px Arial';
-          context.fillText(`최고 점수 : ${scoreSave}점`, 170, 250);
-          
-          
-          // 클릭 가능한 영역의 좌표와 크기
-          const restartButton = {
-              x: 320,
-              y: 350,
-              width: 140,
-              height: 40
-          };
-
-          // 마우스 클릭 이벤트 핸들러 등록
-          canvas.addEventListener('click', function (event) {
-              const mouseX = event.clientX - canvas.getBoundingClientRect().left;
-              const mouseY = event.clientY - canvas.getBoundingClientRect().top;
-
-              // 클릭된 좌표가 버튼 영역 안에 있는지 확인
-              if (
-                  mouseX > restartButton.x &&
-                  mouseX < restartButton.x + restartButton.width &&
-                  mouseY > restartButton.y &&
-                  mouseY < restartButton.y + restartButton.height
-              ) {
-                  // "다시하기" 버튼이 클릭되었을 때의 동작
-                  // 여기에 다시 시작하는 로직을 추가하면 됩니다.
-                  // 예를 들면, 게임 초기화 등의 작업을 수행할 수 있습니다.
-                  location.reload(); // 페이지를 다시 로드하는 예시
-              }
-          });
-
-          // "다시하기" 버튼 그리기
-          context.fillStyle = 'blue';
-          context.fillRect(restartButton.x, restartButton.y, restartButton.width, restartButton.height);
-
-          // 버튼 텍스트 그리기
-          context.fillStyle = 'white';
-          context.font = '24px Arial';
-          context.fillText('다시하기', restartButton.x + 20, restartButton.y + 30);
-                  
-                    return;
-                  }    
+          return;
+        }    
         handleInput();
         // 게임 상태 업데이트
         time++;
@@ -176,7 +115,7 @@
         }
         context.fillStyle = 'black';
         context.font = '24px Arial';
-        context.fillText('현재 점수 : ' + score, 10, 30);
+        context.fillText('Score: ' + score, 10, 30);
       
         // 다음 프레임 실행
         requestAnimationFrame(gameLoop); // 프레임 단위 반복이라 setInterval 보다 부드러움
