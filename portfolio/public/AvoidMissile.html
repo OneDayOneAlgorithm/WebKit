@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>avoid missiles</title>
+    <style>
+      canvas {
+        border: 1px solid black;
+      }
+      #gameCanvas{
+        width: 800;
+        height: 600;
+        background-image: url(images/space3.jpg);
+      }
+      .stop-scrolling { 
+        height: 100%; 
+        width: 100%;
+        overflow: hidden; 
+      } 
+      body{
+        background-color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
+    <script>
+        // 캔버스 요소 가져오기
+      const canvas = document.getElementById('gameCanvas');
+      const context = canvas.getContext('2d');
+      
+      // 게임 상태 변수
+      let gameOver = false;
+      let score = 0;
+      let time = 0;
+      let player = {
+        x: canvas.width / 2,
+        y: canvas.height - 50,
+        radius: 20
+      };
+      let missiles = [];
+      let keyState = {};
+      
+      // 키 이벤트 핸들러 등록
+      document.addEventListener('keydown', function(event) {
+        if (event.code === 'Escape') {
+          gameOver = true;
+        }
+      });
+
+      // 키보드 이벤트 핸들러 등록
+      document.addEventListener('keydown',function(e){
+        keyState[e.key] = true;
+      })
+      document.addEventListener('keyup',function(e){
+        keyState[e.key] = false;
+      })
+      function handleInput() {
+        if (!gameOver) {
+            if ((keyState['ArrowRight'] || keyState['Right']) & player.x<(canvas.width-20)) {
+                player.x += 5;
+            }
+            if ((keyState['ArrowLeft'] || keyState['Left']) & player.x>20) {
+                player.x -= 5;
+            }
+        }   
+      }
+      function disableScroll() { 
+        document.body.classList.add("stop-scrolling"); 
+      } 
+      disableScroll();
+
+      // 로컬스토리지
+      function saveData(score) {
+        let scoreData = {
+            scoreSave: score
+        }
+        localStorage.setItem("max score", JSON.stringify(scoreData) );
+    }
+      
+      // 게임 루프 함수
+      function gameLoop() {
+        // 게임 종료 시 게임 루프 중지
+        if (gameOver) {
+          let jsonData = localStorage.getItem("max score");
+          let scoreData = JSON.parse(jsonData); 
+          let scoreSave;
+          if (scoreData == null){
+            scoreSave = 1
+          }else{
+            scoreSave = scoreData.scoreSave;
+          }
+          // console.dir(scoreSave)
+          if(scoreSave != 1){
+            if(scoreSave<score){
+              saveData(score);
+            }
+          }else{
+            saveData(score);
+          }
+          jsonData = localStorage.getItem("max score")
+          scoreData = JSON.parse(jsonData) 
+          scoreSave = scoreData.scoreSave; 
+          context.fillStyle = 'white';
+          context.font = '60px Arial';
+          context.fillText(`최고 점수 : ${scoreSave}점`, 170, 250);
+          
+          
+          // 클릭 가능한 영역의 좌표와 크기
+          const restartButton = {
+              x: 320,
+              y: 350,
+              width: 140,
+              height: 40
+          };
+
+          // 마우스 클릭 이벤트 핸들러 등록
+          canvas.addEventListener('click', function (event) {
+              const mouseX = event.clientX - canvas.getBoundingClientRect().left;
+              const mouseY = event.clientY - canvas.getBoundingClientRect().top;
+
+              // 클릭된 좌표가 버튼 영역 안에 있는지 확인
+              if (
+                  mouseX > restartButton.x &&
+                  mouseX < restartButton.x + restartButton.width &&
+                  mouseY > restartButton.y &&
+                  mouseY < restartButton.y + restartButton.height
+              ) {
+                  // "다시하기" 버튼이 클릭되었을 때의 동작
+                  // 여기에 다시 시작하는 로직을 추가하면 됩니다.
+                  // 예를 들면, 게임 초기화 등의 작업을 수행할 수 있습니다.
+                  location.reload(); // 페이지를 다시 로드하는 예시
+              }
+          });
+
+          // "다시하기" 버튼 그리기
+          context.fillStyle = 'red';
+          context.fillRect(restartButton.x, restartButton.y, restartButton.width, restartButton.height);
+
+          // 버튼 텍스트 그리기
+          context.fillStyle = 'white';
+          context.font = '24px Arial';
+          context.fillText('다시하기', restartButton.x + 20, restartButton.y + 30);
+                  
+                    return;
+                  }    
+        handleInput();
+        // 게임 상태 업데이트
+        time++;
+        if (time % 50 === 0) {
+          missiles.push({
+            x: Math.random() * canvas.width, // 공 나오는 위치는 맵에 비례
+            y: 0,
+            radius: 10,
+            speed: 5 + time / 500 // 속도는 플탐에 비례
+          });
+        }
+        for (let i = 0; i < missiles.length; i++) {
+          missiles[i].y += missiles[i].speed; // 미사일의 위치
+          if (missiles[i].y > canvas.height) { // 맵밖으로 나간 미사일은 제거
+            missiles.splice(i, 1);
+            i--;
+          } else {
+            let distance = Math.sqrt(Math.pow(player.x - missiles[i].x, 2) + Math.pow(player.y - missiles[i].y, 2));
+            // 충돌 검사
+            if (distance < player.radius + missiles[i].radius) {
+              gameOver = true;
+            }
+          }
+        }
+        score++;
+      
+        // 게임 화면 그리기
+        context.clearRect(0, 0, canvas.width, canvas.height); // 캠버스 초기화
+        context.beginPath(); // 새로운 경로 시작
+        context.arc(player.x, player.y, player.radius, 0, 2 * Math.PI); // 원 그리기
+        context.fillStyle = 'blue'; 
+        context.fill(); 
+        // 미사일 반복문
+        for (let i = 0; i < missiles.length; i++) {
+          context.beginPath();
+          context.arc(missiles[i].x, missiles[i].y, missiles[i].radius, 0, 2 * Math.PI);
+          context.fillStyle = 'red';
+          context.fill();
+        }
+        context.fillStyle = 'white';
+        context.font = '24px Arial';
+        context.fillText('현재 점수 : ' + score, 10, 30);
+      
+        // 다음 프레임 실행
+        requestAnimationFrame(gameLoop); // 프레임 단위 반복이라 setInterval 보다 부드러움
+      }
+      
+      // 게임 루프 시작
+      requestAnimationFrame(gameLoop);
+      
+      </script>
+  </body>
+</html>

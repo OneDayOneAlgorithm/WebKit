@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <style>
+        .house {
+            width: 100px;
+            height: 100px;
+            overflow: hidden;
+        }
+        .box {
+            position: relative;
+            left: 0px;
+            top: 0px;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .box > li {
+            width:100px;
+            height: 100px;
+            background: linear-gradient(
+                0deg,
+                rgba(15, 37, 110, 1) 12%,
+                rgba(32, 178, 7, 1) 84%
+            );
+            background-blend-mode: normal;
+            border: 1px solid red;
+            box-sizing: border-box;
+            
+        }
+        .row .house {
+            float: left;
+        }
+        .row { clear: both; }
+        
+    </style>
+    <script>
+        class Box {
+            constructor() {
+                this.target = Math.floor(Math.random() * 300);
+                this.target = Math.floor(this.target/100) * 100;
+            }
+
+            mkBox() {
+                this.house = $(`<div class="house">
+                    <ul class="box">
+                        <li class="bingo"><img src="images/hamberger.jfif" alt=""></li>
+                        <li class="bingo"><img src="images/candy.jfif" alt=""></li>
+                        <li class="bingo"><img src="images/cookie.jfif" alt=""></li>
+                        
+                    </ul>
+                </div>`);
+
+                this.playBox();
+                return this.house;
+            }
+
+            playBox() {
+                // this.q=1
+                console.log(this)
+                this.x = 0;
+                this.y=0;
+                this.ref = setInterval(()=>{
+                    this.y -= 12;
+                    if(this.y <= -this.target) {
+                        this.y = -this.target;
+                        clearInterval(this.ref);
+                    }
+                    $('.box', this.house).css('top', this.y+'px');
+                }, 30);
+                lst.push(-this.target)
+                
+                if(lst.length==9){
+                    setTimeout(function(){
+                        if(lst[3]==lst[4] && lst[4]==lst[5]){
+                    console.log(lst[3],lst[4],lst[5]);
+                    console.log("당첨")
+                    $('h3').text("당첨되셨습니다!")
+                    // $('#game').empty();
+                }
+                    },500)
+                    
+                }
+                
+            }
+        } // box class
+
+        class Row {
+            constructor() {
+                this.row = $('<div class="row"></div>');
+            }
+            makeRow() {
+                this.row.append(new Box().mkBox());
+                this.row.append(new Box().mkBox());
+                this.row.append(new Box().mkBox());
+                return this.row;
+            }
+        };
+        
+        $(function() {
+            function start(){
+                $('#game').empty(); // 게임 영역 초기화
+                lst = []
+                $('#game').append(new Row().makeRow());
+                $('#game').append(new Row().makeRow());
+                $('#game').append(new Row().makeRow());
+                
+                
+            }
+            $('#Btn').click(function() {
+                $('h3').text("")
+                start();
+            });  
+        })
+
+    </script>
+</head>
+<body>
+    <h1>햄버거 하우스 형 게임</h1>
+    <input type="button" id="Btn" value="돌리기 << 가운데 줄이 같은 그림 나오면 성공!">
+    
+
+    <div id="game"></div>
+    <div class="row"><br><h3></h3></div>
+    
+    
+</body>
+</html>
