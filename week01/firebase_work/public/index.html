@@ -10,12 +10,16 @@
       #gameCanvas{
         width: 800;
         height: 600;
+        background-image: url(images/space3.jpg);
       }
       .stop-scrolling { 
         height: 100%; 
         width: 100%;
         overflow: hidden; 
       } 
+      body{
+        background-color: black;
+      }
     </style>
   </head>
   <body>
@@ -53,10 +57,12 @@
       })
       function handleInput() {
         if (!gameOver) {
-            if (keyState['ArrowRight'] || keyState['Right']) {
+            if ((keyState['ArrowRight'] || keyState['Right']) & player.x<(canvas.width-20)) {
+              console.log(player.x)
                 player.x += 5;
             }
-            if (keyState['ArrowLeft'] || keyState['Left']) {
+            if ((keyState['ArrowLeft'] || keyState['Left']) & player.x>20) {
+              console.log(player.x)
                 player.x -= 5;
             }
         }   
@@ -92,7 +98,7 @@
           jsonData = localStorage.getItem("max score")
           scoreData = JSON.parse(jsonData) 
           scoreSave = scoreData.scoreSave; 
-          context.fillStyle = 'black';
+          context.fillStyle = 'white';
           context.font = '60px Arial';
           context.fillText(`최고 점수 : ${scoreSave}점`, 170, 250);
           
@@ -125,7 +131,7 @@
           });
 
           // "다시하기" 버튼 그리기
-          context.fillStyle = 'blue';
+          context.fillStyle = 'red';
           context.fillRect(restartButton.x, restartButton.y, restartButton.width, restartButton.height);
 
           // 버튼 텍스트 그리기
@@ -174,7 +180,7 @@
           context.fillStyle = 'red';
           context.fill();
         }
-        context.fillStyle = 'black';
+        context.fillStyle = 'white';
         context.font = '24px Arial';
         context.fillText('현재 점수 : ' + score, 10, 30);
       
