@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Ajax 비동기 처리 연습</h1>
+    사용자: <input type="text" id="user"><br>
+    메세지: <input type="text" id="message"><br>
+    <button id="sendBtn">전송</button>
+    <div id="box"></div>
+
+    <script>
+        function getData(callback) {
+            const xhr = new XMLHttpRequest();
+            xhr.onload = callback;
+
+            // data 요청 경로 지정
+            // CORS policy: No 'Access-Control-Allow-Origin'
+            // 클라이언트에서 포트나 도메인이 다른 서버로 요청 하면
+            // 클라이언트는 다른 서버에서 데이터를 보낸다고 판단되어 보안상 block 시켜 버린다.
+            // 해결 방법: 서버에서 CORS 설정을 한다.
+            xhr.open("GET", `http://localhost:3000/data?user=${user}&message=${message}`, true);
+            // 요청 실행
+            xhr.send();
+        } // end of getData() 
+
+        // sendBtn 버튼이 눌러지면 getData함수가 실행
+        document.getElementById("sendBtn").onclick = function() {
+            // onload 이벤트 핸들러를 콜백으로 넣어 준다.
+            let user = document.getElementById('user').value;
+            let message = document.getElementById('message').value;
+            getData(function() {
+                const obj = JSON.parse(this.responseText);
+                let htmlData = `<p>사용자:${user}</p>`;
+                htmlData += `<p>메세지:${message}</p>`;
+                document.getElementById("box").innerHTML = htmlData;
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="http://code.jquery.com/jquery.js"></script>
+</head>
+<body>
+    <button id="getBtn">GET 요청</button>
+    <button id="postBtn">POST 요청</button>
+    <button id="putBtn">PUT 요청</button>
+    <button id="deleteBtn">DELETE 요청</button>
+
+    <script>
+        function myAjax(method, url, data, callback) {
+            let xhr = new XMLHttpRequest();
+            xhr.onload = callback;
+            xhr.open(method, url, true);
+            console.log(data);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.send(`no=${data.no}&title=${data.title}&done=${data.done}`);
+        }
+
+        $('#getBtn').click(function(e) {
+            myAjax("GET", "http://localhost:3000/todo", {}, function(e) {
+                console.log(e.target.responseText);
+            });
+        });
+
+        $('#postBtn').click(function(e) {
+            myAjax("POST", "http://localhost:3000/todo", {title:'새 할일'}, function(e) {
+                // onload 이벤트 핸들러 메서드가 된다.
+                console.log(e.target.responseText);
+            });
+        });
+
+        $('#putBtn').click(function(e) {
+            myAjax("PUT", "http://localhost:3000/todo", {no:1004, title:"제목 수정", done:true}, function(e) {
+                // onload 이벤트 핸들러 메서드가 된다.
+                console.log(e.target.responseText);
+            });
+        });
+
+        $('#deleteBtn').click(function(e) {
+            myAjax("DELETE", "http://localhost:3000/todo", {no: 1004}, function(e) {
+                // onload 이벤트 핸들러 메서드가 된다.
+                console.log(e.target.responseText);
+            });
+        });
+    </script>
+</body>
+</html>
