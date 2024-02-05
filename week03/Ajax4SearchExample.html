@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Real-time Search Example</title>
+  <!-- jQuery 라이브러리 로드 -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <h2>Real-time Search Example</h2>
+  <input type="text" id="searchInput" placeholder="Search...">
+  <ul id="searchResults"></ul>
+
+  <script>
+    $(document).ready(function() {
+      $('#searchInput').on('input', function() {
+        const keyword = $(this).val();
+
+        // 검색어가 비어있지 않은 경우에만 서버로 Ajax 요청 보냄
+        if (keyword.trim() !== '') {
+          // Ajax 요청 보내기
+          $.ajax({
+            url: 'https://jsonplaceholder.typicode.com/posts', // 검색할 URL
+            method: 'GET', // GET 요청
+            data: { search: keyword }, // 검색어를 서버에 전달
+            dataType: 'json', // 응답 데이터 타입
+          })
+          .done(function(data) {
+            // 요청이 성공적으로 완료되면 호출되는 콜백 함수
+            displaySearchResults(data);
+          })
+          .fail(function(xhr, status, error) {
+            // 요청이 실패했을 때 호출되는 콜백 함수
+            console.error('에러 발생: ' + error);
+          });
+        } else {
+          // 검색어가 비어있는 경우 검색 결과를 초기화
+          $('#searchResults').empty();
+        }
+      });
+
+      function displaySearchResults(results) {
+        const $searchResults = $('#searchResults');
+        $searchResults.empty();
+
+        if (results.length === 0) {
+          $searchResults.append('<li>No results found</li>');
+        } else {
+          results.forEach(function(result) {
+            $searchResults.append('<li>' + result.title + '</li>');
+          });
+        }
+      }
+    });
+  </script>
+</body>
+</html>
+
