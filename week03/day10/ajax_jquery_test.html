@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="http://code.jquery.com/jquery.js"></script>
+</head>
+<body>
+    <button id="getBtn">GET 요청</button>
+    <button id="postBtn">POST 요청</button>
+    <button id="putBtn">PUT 요청</button>
+    <button id="deleteBtn">DELETE 요청</button>
+
+    <script>
+        function myAjax(method, url, data, callback) {
+            $.ajax({
+                url:url,
+                method:method,
+                dataType:'json',
+                data:data,
+                success:callback, // 이 때 e는 서버에서 받아온 json
+                error:function(xhr,status,error){
+                    console.log('에러:',error)
+                }
+            });
+        }
+        function print(data){
+            console.log(data);
+            $('#box').text(JSON.stringify(data));
+        }
+        const todoUrl = "http://localhost:3000/todo";
+        $('#getBtn').click(function(e) {
+            
+            myAjax("GET", todoUrl, {}, function(e) {
+                print(e)
+            });
+        });
+
+        $('#postBtn').click(function(e) {
+            myAjax("POST", todoUrl, {title:'새 할일'}, function(e) {
+                // onload 이벤트 핸들러 메서드가 된다.
+                print(e)
+            });
+        });
+
+        $('#putBtn').click(function(e) {
+            myAjax("PUT", todoUrl, {no:1004, title:"제목 수정", done:true}, function(e) {
+                // onload 이벤트 핸들러 메서드가 된다.
+                print(e)
+            });
+        });
+
+        $('#deleteBtn').click(function(e) {
+            myAjax("DELETE", todoUrl, {no: 1004}, function(e) {
+                // onload 이벤트 핸들러 메서드가 된다.
+                print(e)
+            });
+        });
+    </script>
+</body>
+</html>

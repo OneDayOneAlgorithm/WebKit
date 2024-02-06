@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <style>
+        #todoRows input {
+            border: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ajax를 활용한 TodoList 구현</h1>
+    <div>
+        새 할일: <input type="text" id="title" value="hello world">
+        <button id="saveBtn">Save</button>
+    </div><br>
+    <table width="100%" border="1">
+        <thead>
+            <tr>
+                <th>체크</th>
+                <th>제목</th>
+                <th>수정</th>
+                <th>삭제</th>
+            </tr>
+        </thead>
+        <tbody id="todoRows"></tbody>
+    </table>
+
+
+    <script>
+        let todoRows = document.getElementById('todoRows');
+        let todoList = [];
+
+        function myAjax(method, url, data, callback) {
+            $.ajax({
+                url: url, // 요청할 URL
+                method: method, // 요청 방식 (GET, POST 등)
+                dataType: 'json', // 응답 데이터 타입 (JSON, XML 등)
+                data:data,
+                success: callback,
+                error: function(xhr, status, error) {
+                    console.log('에러:', error);
+                }
+            });
+        }
+
+        function getList (btn) {
+            myAjax("GET", "http://localhost:3000/todo", {}, function(data) {
+                todoList = data;
+                drawList();
+            });
+        };
+
+        function postList (newTodo) {
+            myAjax("POST", "http://localhost:3000/todo", newTodo, function(data) {
+                todoList = data;
+                drawList();
+            });
+        };
+
+        function putList (data) {
+            myAjax("PUT", "http://localhost:3000/todo", data, function(data) {
+                todoList = data;
+                drawList();
+            });
+        };
+
+        function deleteList (btn) {
+            myAjax("DELETE", "http://localhost:3000/todo", {no: Number(btn.dataset.no)}, function(data) {
+                todoList = data;
+                drawList();
+            });
+        };
+
+
+        function getNewData(btn) {
+            let no = $(btn).parent().parent()[0].dataset.no;
+            let done = JSON.parse($(btn).parent().parent()[0].dataset.done);
+            let newTitle = $(btn).parent().parent().find('input[name=title]').val();
+            return {no:no, title:newTitle, done:done};
+        }
+
+        function chkBtnEvtHandle(chkBtn) {
+            let newData = getNewData(chkBtn);
+            newData.done = !newData.done;
+            putList(newData);
+        }
+
+        function editBtnEvtHandle(editBtn) {
+            let newData = getNewData(editBtn);
+            putList(newData);
+        }
+
+        function drawList() {
+            let rows = "";
+            for(let i=0; i<todoList.length; i++) {
+                let todo = todoList[i];
+                rows += `<tr data-no="${todo.no}" data-done="${todo.done}">
+                    <td><input onchange="chkBtnEvtHandle(this)" type="checkbox" ${todo.done?"checked":""}></td>
+                    <td><input name="title" type="text" value="${todo.title}" style="width:100%;text-decoration:${todo.done?"line-through":"none"}"></td>
+                    <td><button onclick="editBtnEvtHandle(this)">Edit</button></td>
+                    <td><button data-no="${todo.no}" onclick="deleteList(this)">Delete</button></td>
+                </tr>`;
+            }
+            todoRows.innerHTML = rows;
+        }
+
+        getList();
+
+        $('#saveBtn').click(function(e) {
+            let title = $('#title').val();
+            postList ({title});
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Welcome to Firebase Hosting</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Welcome to Firebase Hosting</title>
+
+    <script defer src="https://www.gstatic.com/firebase/8.9.1/firebase-app.js"></script>
+    <script defer src="https://www.gstatic.com/firebase/8.9.1/firebase-auth.js"></script>
+    <script defer src="https://www.gstatic.com/firebase/8.9.1/firebase-firestore.js"></script>
+    <script defer src="https://www.gstatic.com/firebase/8.9.1/firebase-storage.js"></script>
+    <script defer src="https://www.gstatic.com/firebase/init.js?useEmulator=true"></script>
+
+  </head>
+  <body>
+    
+<script>
+      document.addEventListener('DOMContentLoaded', function() {
+        
+
+          const app = firebase.app();
+          const db = firebase.firestore();
+        //   console.dir(app);
+        //   console.dir(db)
+        db.collection("users").get().then((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+        console.log(`${doc.id} => ${todo.title()}`);
+    });
+});
+      })
+</script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-firestore-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyAGjptITtRSO9MYZzbOa9jmXphaS6rRLX0",
+        authDomain: "portfolio-spring1998.firebaseapp.com",
+        projectId: "portfolio-spring1998",
+        storageBucket: "portfolio-spring1998.appspot.com",
+        messagingSenderId: "869184505909",
+        appId: "1:869184505909:web:a647a8ab6451c514bfc97c"
+    };
+    firebase.initializeApp(firebaseConfig);
+  </script>
+  </body>
+</html>
