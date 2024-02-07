@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <style>
+        #todoRows input {
+            border: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Firebase를 활용한 TodoList 구현</h1>
+    <div>
+        새 할일: <input type="text" id="title" value="hello world"><br>
+        사진: <input multiple type="file" class="file"><br>
+        <button id="saveBtn">Save</button>
+    </div><br>
+    <p>이미지 미리보기</p>
+    <div id="prev_file"></div>
+    <table width="100%" border="1">
+        <thead>
+            <tr>
+                <th>체크</th>
+                <th>제목</th>
+                <th>수정</th>
+                <th>삭제</th>
+            </tr>
+        </thead>
+        <tbody id="todoRows"></tbody>
+    </table>
+
+    <script>
+        let todoRows = document.getElementById('todoRows');
+        let todoList = [];
+        var db = null;
+        let storage = null;
+
+        function getList () {
+            todoList = [];
+            db.collection("todolist").get().then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                    const todo = doc.data();
+                    todo.no = doc.id;
+                    todoList.push(todo);
+                    drawList();
+                });
+            });
+        };
+
+        function postList (newTodoTitle) {
+            console.log(db);
+            // Add a second document with a generated ID.
+            db.collection("todolist").add({
+                title: newTodoTitle,
+                done: false
+            }).then((docRef) => {
+                getList();
+            }).catch((error) => {
+                console.error("Error adding document: ", error);
+            });
+        };
+        // 업데이트
+        function putList (e) {
+            db.collection("todolist").doc(e.no).set({
+                title: e.title,
+                done: e.done
+            }).then((docRef) => {
+                getList();
+            }).catch((error) => {
+                console.error("Error adding document: ", error);
+            });
+        };
+
+        function deleteList (btn) {
+            db.collection("todolist").doc(btn.dataset.no).delete().then(() => {
+                console.log("Document successfully deleted!");
+                getList();
+            }).catch((error) => {
+                console.error("Error removing document: ", error);
+            });
+        };
+
+
+        function getNewData(btn) {
+            let no = $(btn).parent().parent()[0].dataset.no;
+            let done = JSON.parse($(btn).parent().parent()[0].dataset.done);
+            let newTitle = $(btn).parent().parent().find('input[name=title]').val();
+            return {no:no, title:newTitle, done:done};
+        }
+
+        function chkBtnEvtHandle(chkBtn) {
+            let newData = getNewData(chkBtn);
+            console.log(chkBtn)
+            console.log(newData)
+            newData.done = !newData.done;
+            putList(newData);
+        }
+
+        function editBtnEvtHandle(editBtn) {
+            let newData = getNewData(editBtn);
+            putList(newData);
+        }
+
+        function drawList() {
+            let rows = "";
+            for(let i=0; i<todoList.length; i++) {
+                let todo = todoList[i];
+                rows += `<tr data-no="${todo.no}" data-done="${todo.done}">
+                    <td><input data-done="${todo.done}" onchange="chkBtnEvtHandle(this)" type="checkbox" ${todo.done?"checked":""}></td>
+                    <td><input name="title" type="text" value="${todo.title}" style="width:100%;text-decoration:${todo.done?"line-through":"none"}"></td>
+                    <td><button onclick="editBtnEvtHandle(this)">Edit</button></td>
+                    <td><button data-no="${todo.no}" onclick="deleteList(this)">Delete</button></td>
+                </tr>`;
+            }
+            todoRows.innerHTML = rows;
+        }
+        var uploadImgArr = [];
+
+
+        $('#saveBtn').click(function(e) {
+            let title = $('#title').val();
+            
+            if(uploadImgArr.length > 0) {
+                for(var i=0; i<uploadImgArr.length; i++) {
+                    // 1. 파일을 storage에 저장
+                    // 2. storage에 저장된 이미지의 경로와 이미지의 이름을 db에 저장.
+                    // 스토리지 저장 콜백 함수에서 다음을 실행한다.
+                    // postList (title, 이미지경로, 이미지이름);
+
+                    //console.dir(storage);
+                    
+                    // 해시코드 or timestamp를 이용해서 파일명 중복을 방지한다.
+                    var fileName = "img"+( new Date().getTime() )+".png";
+                    var fileUrl = "";
+                    firebase.storage().ref()
+                        .child(fileName)
+                        .putString(uploadImgArr[i], 'data_url').then((snapshot) => {
+                            console.log('Uploaded a data_url string!');
+                            postList(title, fileName, fileUrl);
+                        });
+                }
+            } else {
+                postList(title);
+            }
+        });
+
+
+
+        // $('input[type=file]')
+        $('input.file').change(function(e){
+            var input = e.target;
+            if(input.files && input.files[0]){
+                for(var i=0; i<input.files.length;i++){
+                    var reader = new FileReader();
+                    // 읽기 작업이 완료되면 실행
+                    reader.onload = function(e){
+                        // console.log(e.target.result)
+                        uploadImgArr.push(e.target.result)
+                        $('#prev_file').append($('<img width="100" src="' + e.target.result + '"></img>'));
+                    }
+                    // 파일 읽기 명령 시작
+                    reader.readAsDataURL(input.files[i]);
+                }
+            }
+        })
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          
+          try {
+                const app = firebase.app();
+                db = firebase.firestore();
+                storage = firebase.storage();
+                // console.log(storage)
+                // console.log("app", app);
+                // console.log("db", db);
+            
+                getList();
+            
+          } catch (e) {
+              console.error(e);
+              loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
+          }
+        });
+      </script>
+  
+    <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-storage-compat.js"></script>
+    <script>
+      var firebaseConfig = {
+          /////// --- 각자 개인 프로젝트 설정 값으로 수정.
+        apiKey: "AIzaSyAGjptITtRSO9MYZzbOa9jmXphaS6rRLX0",
+        authDomain: "portfolio-spring1998.firebaseapp.com",
+        projectId: "portfolio-spring1998",
+        storageBucket: "portfolio-spring1998.appspot.com",
+        messagingSenderId: "869184505909",
+        appId: "1:869184505909:web:a647a8ab6451c514bfc97c"
+      };
+      firebase.initializeApp(firebaseConfig);
+    </script>
+</body>
+</html>

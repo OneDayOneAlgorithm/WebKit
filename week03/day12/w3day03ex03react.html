@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        function Greeting(){
+            return (<h2>즐거운 코딩 시간</h2>)
+        }
+    </script>
+
+    <script type="text/babel">
+        function MyComponent(){
+            // XML 문법에서 최상위 root 엘리먼트는 하나만 존재 한다.
+            return (<div>
+                        <h1>이것은 내가 만든 콤포넌트 내용</h1>
+                        <Greeting/>
+                    </div>);
+                    
+        }
+    </script>
+
+    <script type="text/babel">
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<MyComponent/>)
+        ReactDOM.createRoot(document.getElementById('root')).render(<h1>Hello world</h1>)
+    </script>
+</body>
+</html>
