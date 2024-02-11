@@ -1,27 +1,23 @@
-import { useState } from "react";
-
+import React, {useState} from 'react';
+// App에서 사용 할 새 컴포넌트 선언
+// input에 내용을 입력하고 버튼을 클릭하면
+// 입력 된 내용으로 appTitle이 변경 되도록 하라.
 function Header(props) {
-    var title = "My Todo List";
-    // console.log(props);
-    const btnHandler = function(e) {
-        console.log("Save Button Clicked!");
-        console.log(newTitle);
-        setNewTitle("");
-    }
-    // useState() 훅을 사용하면 결과가 구조분해 할당으로 
-    // 상수와 상수의 값을 변경 할 수 있는 setter가 만들어진다.
-    // state 변수로 선언해야한다.
-    // state 변수의 내용이 변경 되는 순간
-    // 화면이 다시 리로드 된다.
-    const [newTitle, setNewTitle] = useState("");
+    const [newTodo, setNewTodo] = useState("");
+    
     return (<header className="App-header">
-        <h1>{title}</h1>
-        <p>
-            Todo: <input onChange={(e) => {setNewTitle(e.target.value)}} type="text" value={newTitle}/>
-            <button onClick={props.btnHandler}>Save</button>
-        </p>
+      <h1>Todo List</h1>
+      <input onChange={(e)=>{setNewTodo(e.target.value)}} type="text" value={newTodo}></input>
+      <button onClick={()=>{
+  
+        props.btnHandler({
+          id: props.cnt+1,
+          text: newTodo,
+          done: false
+        });
+        setNewTodo('');
+      }}>add</button>
     </header>);
-}
+  }
 
-// 사용하는 페이지에서 import 가능.
 export default Header;
