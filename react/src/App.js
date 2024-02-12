@@ -1,68 +1,89 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect} from 'react';
 import './App.css';
+import Header from './header';
 import ListBody from './ListBody';
+import { db } from './firebase';
+import { collection, addDoc, getDocs, deleteDoc, doc, updateDoc  } from "firebase/firestore"; 
 
-// App에서 사용 할 새 컴포넌트 선언
-// input에 내용을 입력하고 버튼을 클릭하면
-// 입력 된 내용으로 appTitle이 변경 되도록 하라.
-function Header(props) {
-  const [newTodo, setNewTodo] = useState("");
-  
-  return (<header className="App-header">
-    <h1>Todo List</h1>
-    <input onChange={(e)=>{setNewTodo(e.target.value)}} type="text" value={newTodo}></input>
-    <button onClick={()=>{
-
-      props.btnHandler({
-        id: props.cnt+1,
-        text: newTodo,
-        done: false
-      });
-      setNewTodo('');
-    }}>add</button>
-  </header>);
-}
-
-// Header 컴포넌트를 사용하는 컴포넌트
+// App method
 function App() {
-  const [todoList,setTodoList] = useState([
-    {
-      id: 1,
-      text: '자바스크립트 입문',
-      done: true
-    },
-    {
-      id: 2,
-      text: '함수 배우기',
-      done: true
-    },
-    {
-      id: 3,
-      text: '객체와 배열 배우기',
-      done: false
-    },
-    {
-      id: 4,
-      text: '배열 내장함수 배우기',
-      done: false
-    }
-  ]);
+  const [todoList,setTodoList] = useState([]);
   const [cnt,setCnt] = useState(0);
+
+  // todo.no increment
   for(let i=0; i<todoList.length; i++){
-    if (cnt < todoList[i].id){
-      setCnt(todoList[i].id)
+    if (cnt < todoList[i].no){
+      setCnt(todoList[i].no)
     }
   }
-  const btnHandler = function(newTodo) {
-    setTodoList([...todoList,newTodo]);
-  }
-  const todoDelete = function(deletedId) {
-    setTodoList(todoList.filter((todo) => todo.id !== deletedId));
+
+  // DB에서 todoList 조회 후 반환하는 메서드
+  const fetchData = async () => {
+    try {
+      const querySnapshot = await getDocs(collection(db, "todoList"));
+      const newTodos = querySnapshot.docs.map((doc) => ({
+        id: doc.id, ...doc.data()
+      }));
+      // todo.no 오름차순 정렬
+      newTodos.sort((a, b) => a.no - b.no);        
+      return newTodos;
+    } catch (e) {
+      console.error("Error fetching documents: ", e);
+      return;
+    }
   };
+
+  // 최초 마운트될 때 todoList초기화
+  useEffect(() => {(async () => {setTodoList(await fetchData())})()}, []);   
+
+  // todo add button
+  const btnHandler = async function(newTodo) {
+    try {
+      await addDoc(collection(db, "todoList"), {
+        no: cnt+1,
+        text: newTodo.text,
+        done: newTodo.done
+      });
+      setTodoList(await fetchData());
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+  }
+
+  // todo delete button
+  const todoDelete = async function(todoId) {
+    try{
+      await deleteDoc(doc(db, "todoList", todoId));
+      setTodoList(await fetchData());
+    }catch(e){
+      console.error("Error deleting document: ", e);
+    }
+  };
+
+  // todo check button
+  const todoCheck = async function(todoId,status){
+    try{
+      await updateDoc(doc(db,'todoList',todoId),{
+        done : status
+      })
+      setTodoList(await fetchData());
+    }catch(e){console.error(e);}}
+  
+  // text box auto edit  
+  const textEdit = async function(todoId,text){
+    try{
+      await updateDoc(doc(db, 'todoList', todoId),{
+        text : text
+      })
+      setTodoList(await fetchData())
+    }catch(e){console.log(e)}
+  }
+  
+  // app method return
   return (
     <div className="App">
-      <Header btnHandler={btnHandler} cnt={cnt}></Header>
-      {todoList.map((todo)=>(<ListBody key={todo.id} todo={todo} todoDelete={todoDelete}></ListBody>))}    
+      <Header btnHandler={btnHandler}></Header>
+      {todoList.map((todo)=>(<ListBody key={todo.no} todo={todo} todoDelete={todoDelete} todoCheck={todoCheck} textEdit={textEdit}></ListBody>))}    
     </div>
   );
 }
