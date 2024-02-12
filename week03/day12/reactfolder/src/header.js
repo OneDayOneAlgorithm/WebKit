@@ -5,13 +5,13 @@ import React, {useState} from 'react';
 function Header(props) {
     const [newTodo, setNewTodo] = useState("");
     
+    // Header return
     return (<header className="App-header">
       <h1>Todo List</h1>
       <input onChange={(e)=>{setNewTodo(e.target.value)}} type="text" value={newTodo}></input>
       <button onClick={()=>{
-  
         props.btnHandler({
-          id: props.cnt+1,
+          no: props.cnt+1,
           text: newTodo,
           done: false
         });
