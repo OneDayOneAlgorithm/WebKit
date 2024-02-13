@@ -82,9 +82,11 @@ function App() {
   
   // app method return
   return (
-    <div className="App">
+    <div>
+      <div className="container m-5 p-2 rounded mx-auto bg-light shadow">
       <Header btnHandler={btnHandler}></Header>
       {todoList.map((todo)=>(<ListBody key={todo.no} todo={todo} todoDelete={todoDelete} todoCheck={todoCheck} textEdit={textEdit}></ListBody>))}
+      </div>  
     </div>
   );
 }
