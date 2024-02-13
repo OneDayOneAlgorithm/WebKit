@@ -78,12 +78,13 @@ function App() {
       setTodoList(await fetchData())
     }catch(e){console.log(e)}
   }
+
   
   // app method return
   return (
     <div className="App">
       <Header btnHandler={btnHandler}></Header>
-      {todoList.map((todo)=>(<ListBody key={todo.no} todo={todo} todoDelete={todoDelete} todoCheck={todoCheck} textEdit={textEdit}></ListBody>))}    
+      {todoList.map((todo)=>(<ListBody key={todo.no} todo={todo} todoDelete={todoDelete} todoCheck={todoCheck} textEdit={textEdit}></ListBody>))}
     </div>
   );
 }

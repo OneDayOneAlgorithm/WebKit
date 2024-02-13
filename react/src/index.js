@@ -2,11 +2,24 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import BootEx from './bootEx';
+import BootEx2 from './bootEx2';
+import BootEx3 from './bootEx3';
+import BootEx4 from './bootEx4';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <Router>
+      <Routes>
+        <Route path="/" element={<App />} />
+        <Route path="/bootEx1" element={<BootEx/>} />
+        <Route path="/bootEx2" element={<BootEx2/>} />
+        <Route path="/bootEx3" element={<BootEx3/>} />
+        <Route path="/bootEx4" element={<BootEx4/>} />
+      </Routes>
+    </Router>
   </React.StrictMode>
 );
 
