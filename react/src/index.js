@@ -14,7 +14,7 @@ root.render(
   <React.StrictMode>
     <Router>
       <Routes>
-        <Route path="/" element={<App />} />
+        <Route path="/todoList" element={<App />} />
         <Route path="/bootEx1" element={<BootEx/>} />
         <Route path="/bootEx2" element={<BootEx2/>} />
         <Route path="/bootEx3" element={<BootEx3/>} />
