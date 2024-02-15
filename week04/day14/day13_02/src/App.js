@@ -50,9 +50,7 @@ class MyForm extends Component{
             <input onChange={this.changeHandler} type='text' value={this.state.inputVal}/>
             <p>입력된 값 : {this.state.inputVal}</p>
         </>)
-    }
-
-    
+    }   
 }
 
 

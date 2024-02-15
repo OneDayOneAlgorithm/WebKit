@@ -2,14 +2,14 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAzjgZM7uegCmkEdWPOA1_HfT_mTBFfte8",
-    authDomain: "react-f34b9.firebaseapp.com",
-    projectId: "react-f34b9",
-    storageBucket: "react-f34b9.appspot.com",
-    messagingSenderId: "49836585679",
-    appId: "1:49836585679:web:9602c4fc454648e6b4fdba"
-};
+    apiKey: "AIzaSyA4Gjtqeo4aYsCVhn0gXU-t_IZmv3TLHpQ",
+    authDomain: "node-server-3d477.firebaseapp.com",
+    projectId: "node-server-3d477",
+    storageBucket: "node-server-3d477.appspot.com",
+    messagingSenderId: "74666042997",
+    appId: "1:74666042997:web:d56c64fb02acbae47b7a3c"
+  };
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-export { app, db };
+export default db;
