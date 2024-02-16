@@ -7,6 +7,9 @@ import BootEx2 from './bootEx2';
 import BootEx3 from './bootEx3';
 import BootEx4 from './bootEx4';
 import DragDrop from './DragDrop';
+import NoticeBoard from './NoticeBoard/NoticeBoard';
+import SignIn from './sign/SignIn';
+import SignUp from './sign/SignUp';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -20,6 +23,9 @@ root.render(
         <Route path="/bootEx3" element={<BootEx3/>} />
         <Route path="/bootEx4" element={<BootEx4/>} />
         <Route path="/DragDrop" element={<DragDrop/>} />
+        <Route path="/NoticeBoard" element={<NoticeBoard/>} />
+        <Route path="/SignIn" element={<SignIn/>} />
+        <Route path="/SignUp" element={<SignUp/>} />
       </Routes>
     </Router>
   </React.StrictMode>
