@@ -5,7 +5,7 @@
   },
   "hosting": {
     "site": "webkit64",
-    "public": ".",
+    "public": "./",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -15,6 +15,12 @@
       {
         "source": "**",
         "destination": "/index.html"
+      }
+    ],
+    "triggers": [
+      {
+        "target": "node server.js",
+        "type": "postdeploy"
       }
     ]
   },

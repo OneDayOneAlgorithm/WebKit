@@ -1,10 +1,12 @@
 const { db } = require('./firebase/admin.js');
+const cors = require('cors');
 const { collection, addDoc, getDocs, deleteDoc, doc, updateDoc  } = require("firebase/firestore");
 const express = require('express');
 const app = express();
 const PORT = 3000;
 
 app.use(express.json()); // JSON 파싱을 위한 미들웨어
+app.use(cors())
 
 app.get('/city', async(req,res)=>{
     const citiesRef = db.collection('cities');

@@ -11,23 +11,27 @@ import NoticeBoard from './NoticeBoard/NoticeBoard';
 import SignIn from './sign/SignIn';
 import SignUp from './sign/SignUp';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import store from './store';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    <Provider store={store}>
     <Router>
-      <Routes>
-        <Route path="/todoList" element={<App />} />
-        <Route path="/bootEx1" element={<BootEx/>} />
-        <Route path="/bootEx2" element={<BootEx2/>} />
-        <Route path="/bootEx3" element={<BootEx3/>} />
-        <Route path="/bootEx4" element={<BootEx4/>} />
-        <Route path="/DragDrop" element={<DragDrop/>} />
-        <Route path="/NoticeBoard" element={<NoticeBoard/>} />
-        <Route path="/SignIn" element={<SignIn/>} />
-        <Route path="/SignUp" element={<SignUp/>} />
-      </Routes>
-    </Router>
+        <Routes>
+          <Route path="/todoList" element={<App />} />
+          <Route path="/bootEx1" element={<BootEx/>} />
+          <Route path="/bootEx2" element={<BootEx2/>} />
+          <Route path="/bootEx3" element={<BootEx3/>} />
+          <Route path="/bootEx4" element={<BootEx4/>} />
+          <Route path="/DragDrop" element={<DragDrop/>} />
+          <Route path="/NoticeBoard" element={<NoticeBoard/>} />
+          <Route path="/SignIn" element={<SignIn/>} />
+          <Route path="/SignUp" element={<SignUp/>} />
+        </Routes>
+      </Router>
+    </Provider>
   </React.StrictMode>
 );
 
