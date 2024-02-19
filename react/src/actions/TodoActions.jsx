@@ -105,9 +105,9 @@ export const fetchEmploy = () => {
                 ...doc.data()
             }));
             employList.sort((a, b) => a.no - b.no); 
-            dispatch(fetchTodoSuccess(employList));
+            dispatch(fetchEmploySuccess(employList));
         } catch (error) {
-            dispatch(fetchTodoFailure(error));
+            dispatch(fetchEmployFailure(error));
         }
     };
 };
@@ -147,7 +147,7 @@ export const addEmploy = (newEmploy) => {
 export const deleteEmploy = (EmployId) => {
     return async dispatch => {
         try {
-            await deleteDoc(doc(db, "EmployList", EmployId));
+            await deleteDoc(doc(db, "employList", EmployId));
             dispatch(fetchEmploy());
         } catch(e) {
             console.error("Error deleting document: ", e);
@@ -157,22 +157,50 @@ export const deleteEmploy = (EmployId) => {
 
 export const checkEmploy = (EmployId, status) => {
     return async dispatch => {
-        try{
-            await updateDoc(doc(db,'EmployList',EmployId),{
+        try{      
+            await updateDoc(doc(db,'employList',EmployId),{   
             check : status
             })
-            dispatch(fetchEmploy());
+            dispatch(fetchEmploy()); 
         }catch(e){console.error(e);}}
 };
 
-export const editEmploy = (EmployId, name) => {
+export const editEmploy = (EmployId, props) => {
     return async dispatch => {
         try{
-            if(text=='loading...'){
+            if(props.name=='loading...'){
                 return
             }
-                await updateDoc(doc(db, 'EmployList', EmployId),{
-                    name : name
+                await updateDoc(doc(db, 'employList', EmployId),{
+                    name : props.editedEmploy,
+                    department : props.editedDocument,
+                    rank : props.editedLevel
+                })
+            dispatch(fetchEmploy());
+        }catch(e){console.log(e)}
+    }
+};
+export const editDocument = (EmployId, document) => {
+    return async dispatch => {
+        try{
+            if(document=='loading...'){
+                return
+            }
+                await updateDoc(doc(db, 'employList', EmployId),{
+                    document : document
+                })
+            dispatch(fetchEmploy());
+        }catch(e){console.log(e)}
+    }
+};
+export const editLevel = (EmployId, level) => {
+    return async dispatch => {
+        try{
+            if(level=='loading...'){
+                return
+            }
+                await updateDoc(doc(db, 'employList', EmployId),{
+                    level : level
                 })
             dispatch(fetchEmploy());
         }catch(e){console.log(e)}

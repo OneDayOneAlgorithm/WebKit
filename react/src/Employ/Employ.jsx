@@ -1,8 +1,8 @@
 import { useState, useEffect} from 'react';
-import Header from 'header';
-import ListBody from 'ListBody';
+import Header from './EmployHeader';
+import ListBody from './EmployListBody';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchTodo } from './actions/TodoActions';
+import { fetchEmploy } from '../actions/TodoActions';
 import '../App.css';
 
 // App method
