@@ -1,9 +1,11 @@
-import { FETCH_TODO_SUCCESS, FETCH_TODO_FAILURE, START_LOADING, STOP_LOADING } from '../actions/TodoActions';
+import { FETCH_TODO_SUCCESS, FETCH_TODO_FAILURE, START_LOADING, FETCH_EMPLOY_SUCCESS, FETCH_EMPLOY_FAILURE, EMPLOY_START_LOADING} from '../actions/TodoActions';
 
 const initialState = {
     todoList: [],
     loading: true,
-    error: null
+    error: null,
+    employList: [],
+    employLoading: true
 };
 
 const reducer = (state = initialState, action) => {
@@ -21,16 +23,29 @@ const reducer = (state = initialState, action) => {
                 loading: false,
                 error: action.payload
             };        
-            case START_LOADING:
-                return {
-                    ...state,
-                    loading: true
-                };
-            case STOP_LOADING:
-                return {
-                    ...state,
-                    loading: false
-                };                
+        case START_LOADING:
+            return {
+                ...state,
+                loading: true
+            };     
+        case FETCH_EMPLOY_SUCCESS:
+            return {
+                ...state,
+                employList: action.payload,
+                employLoading: false,
+                error: null
+            };
+        case FETCH_EMPLOY_FAILURE:
+            return {
+                ...state,
+                employLoading: false,
+                error: action.payload
+            };        
+        case EMPLOY_START_LOADING:
+            return {
+                ...state,
+                employLoading: true
+            };                            
         default:
             return state;
         }

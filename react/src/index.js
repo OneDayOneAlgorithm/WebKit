@@ -10,6 +10,7 @@ import DragDrop from './DragDrop';
 import NoticeBoard from './NoticeBoard/NoticeBoard';
 import SignIn from './sign/SignIn';
 import SignUp from './sign/SignUp';
+import Employ from './Employ/Employ';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store';
@@ -29,6 +30,7 @@ root.render(
           <Route path="/NoticeBoard" element={<NoticeBoard/>} />
           <Route path="/SignIn" element={<SignIn/>} />
           <Route path="/SignUp" element={<SignUp/>} />
+          <Route path="/Employ" element={<Employ/>} />
         </Routes>
       </Router>
     </Provider>

@@ -2,10 +2,6 @@ import { useState, useEffect} from 'react';
 import './App.css';
 import Header from './header';
 import ListBody from './ListBody';
-import {db} from './firebase';
-import { collection, addDoc, getDocs, deleteDoc, doc, updateDoc  } from "firebase/firestore"; 
-import { Provider } from 'react-redux';
-import store from './store';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchTodo } from './actions/TodoActions';
 
