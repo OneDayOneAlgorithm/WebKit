@@ -33,7 +33,7 @@ io.sockets.on('connection', function(socket){
             io.sockets.emit('message', data);
         } else {
             // 개인에게 귓속 말 기능으로 보내기 (숙제)
-            
+            io.sockets.emit(data.recepient, data);
         }
     });
 
