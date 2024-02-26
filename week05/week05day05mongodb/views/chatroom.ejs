@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= chatroomInfo.name %></title>
+    <!-- 필요한 CSS 파일이 있다면 여기에 추가 -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .chat-container {
+            width: 80%;
+            margin: 20px auto;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .chat-header {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        .chat-body {
+            height: 400px;
+            overflow-y: scroll;
+            padding: 10px;
+        }
+        .chat-footer {
+            padding: 10px;
+            background-color: #f9f9f9;
+        }
+        .message-input {
+            width: 80%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        .send-button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        .send-button:hover {
+            background-color: #0056b3;
+        }
+        .leave-button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #dc3545;
+            color: white;
+            cursor: pointer;
+        }
+        .leave-button:hover {
+            background-color: #c82333;
+        }
+        .participants {
+            margin-top: 10px;
+            padding: 0 10px;
+            font-size: 14px;
+        }
+        .participants-header {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .participant-item {
+            margin-bottom: 3px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h1>채팅방: <%= chatroomInfo.name %></h1>
+            <button class="leave-button" id="leaveRoomBtn">나가기</button>
+        </div>
+        <div class="participants">
+            <div class="participants-header">참여자 목록:</div>
+            <ul id="participantList">
+                <% chatroomInfo.people.forEach(person => { %>
+                    <li class="participant-item"><%= person %></li>
+                <% }); %>
+            </ul>
+        </div>
+        <div class="chat-body" id="chatBody">
+            <ul id="messageList"></ul>
+        </div>
+        <div class="chat-footer">
+            <input type="text" class="message-input" id="messageInput" placeholder="메시지를 입력하세요...">
+            <button class="send-button" id="sendMessageBtn">전송</button>
+        </div>
+    </div>
+
+    <!-- 필요한 JavaScript 파일이 있다면 여기에 추가 -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        // 소켓 통신을 위한 클라이언트 측 코드
+        var socket = io(); // 서버로부터 소켓 객체 생성
+
+        // 서버로부터 메시지를 받아서 화면에 추가하는 함수
+        function addMessageToUI(message) {
+            var messageList = document.getElementById("messageList");
+            var li = document.createElement("li");
+            li.textContent = message;
+            messageList.appendChild(li);
+        }
+
+        // 서버로 메시지 전송
+        function sendMessage(message) {
+            var roomName = "<%= chatroomInfo.name %>";
+            var userID = "<%= userId %>"
+            socket.emit(roomName, userID+" : "+message); // 방 이름을 이용하여 소켓 이벤트 전송
+        }
+
+        // 채팅방 나가기 버튼 클릭 이벤트 처리
+        document.getElementById("leaveRoomBtn").addEventListener("click", function() {
+            var chatroomName = "<%= chatroomInfo.name %>";
+            window.location.href = '/chatroom/out/' + chatroomName;
+        });
+
+        // 메시지 전송 버튼 클릭 이벤트 처리
+        document.getElementById("sendMessageBtn").addEventListener("click", function() {
+            var messageInput = document.getElementById("messageInput");
+            var message = messageInput.value;
+            if (message.trim() !== "") {
+                sendMessage(message);
+                messageInput.value = ""; // 메시지 입력 필드 비우기
+            }
+        });
+
+        // 소켓으로부터 메시지를 받았을 때 화면에 추가
+        var roomName = "<%= chatroomInfo.name %>";
+        socket.on(roomName, function(message) { // 방 이름을 이용하여 소켓 이벤트 수신
+            console.log(message);
+            addMessageToUI(message);
+        });
+    </script>
+</body>
+</html>
