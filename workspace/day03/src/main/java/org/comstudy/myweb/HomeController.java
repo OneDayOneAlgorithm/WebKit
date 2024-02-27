@@ -55,6 +55,7 @@ public class HomeController extends HttpServlet {
       view.forward(req, resp);
    } // end of doGet()
 
+   // 개발자 약력 추가하기
    @Override
    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       req.setCharacterEncoding("UTF-8");
@@ -74,6 +75,8 @@ public class HomeController extends HttpServlet {
       // 목록으로 리다이렉트
       resp.sendRedirect(req.getContextPath()+"/home");
    }
+   
+   
    
    
 }

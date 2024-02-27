@@ -18,4 +18,28 @@
   	<servlet-name>home</servlet-name>
   	<url-pattern>/home</url-pattern>
   </servlet-mapping>
+  <servlet>
+  	<servlet-name>shopList</servlet-name>
+  	<servlet-class>org.comstudy.myweb.ShopController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>shopList</servlet-name>
+  	<url-pattern>/shop/list</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>boardList</servlet-name>
+  	<servlet-class>org.comstudy.myweb.BoardController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>boardList</servlet-name>
+  	<url-pattern>/board/list</url-pattern>
+  </servlet-mapping>
+   <servlet>
+    <servlet-name>todoList</servlet-name>
+  	<servlet-class>org.comstudy.myweb.TodoController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>todoList</servlet-name>
+  	<url-pattern>/todo/list</url-pattern>
+  </servlet-mapping>
 </web-app>
