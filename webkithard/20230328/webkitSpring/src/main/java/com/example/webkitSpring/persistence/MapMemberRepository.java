@@ -1,7 +1,9 @@
-package org.example.persistence;
+package com.example.webkitSpring.persistence;
 
-import org.example.domain.model.Member;
-import org.example.domain.repository.MemberRepository;
+
+
+import com.example.webkitSpring.domain.model.Member;
+import com.example.webkitSpring.domain.repository.MemberRepository;
 
 import java.util.HashMap;
 import java.util.Map;

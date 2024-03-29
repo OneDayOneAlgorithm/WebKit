@@ -1,13 +1,10 @@
-package org.example.application;
+package com.example.webkitSpring.application;
 
-import org.example.domain.model.DormName;
-import org.example.domain.model.FeePolicy;
-import org.example.domain.model.Member;
-import org.example.domain.repository.MemberRepository;
-import org.example.persistence.MapMemberRepository;
 
-import java.util.Optional;
-
+import com.example.webkitSpring.domain.model.DormName;
+import com.example.webkitSpring.domain.model.FeePolicy;
+import com.example.webkitSpring.domain.model.Member;
+import com.example.webkitSpring.domain.repository.MemberRepository;
 
 public class MemberAppService {
     private MemberRepository memberRepository;
